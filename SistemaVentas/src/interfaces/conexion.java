@@ -10,9 +10,9 @@ public class conexion {
 //            Class.forName("com.mysql.jdbc.Driver");
 //            connect = DriverManager.getConnection("jdbc:mysql://192.168.1.2/base1", "base1", "base1");
             //           conect = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.29:1521:XE","root","");
-            String basedatos="jdbc:oracle:thin:@192.168.1.29:1521:XE";
+            String basedatos="jdbc:oracle:thin:@192.168.1.10:1521:XE";
 //            String basedatos="jdbc:oracle:thin:@localhost:1521:XE";
-            connect = DriverManager.getConnection(basedatos, "desafrrollo", "desarrollo123");
+            connect = DriverManager.getConnection(basedatos, "proyecto", "12345");
             JOptionPane.showMessageDialog(null,"conecion correcta");
 
 //            conectado = true;
