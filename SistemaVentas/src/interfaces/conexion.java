@@ -19,6 +19,8 @@ public class conexion {
     }
     public Statement conn(){
         try{  
+            
+            
 //        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
         System.out.println("Conectando con la base de datos...");
         Connection connection = DriverManager.getConnection(
