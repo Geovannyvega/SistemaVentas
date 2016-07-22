@@ -1,51 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package interfaces;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.LinkedList;
-
+import java.sql.*;
+import javax.swing.JOptionPane;
 public class conexion {
-    
-    public conexion() {
-    }
-    public Statement conn(){
-        try{  
-            
-            
-//        DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
-        System.out.println("Conectando con la base de datos...");
-        Connection connection = DriverManager.getConnection(
-        "jdbc:oracle:thin:@localhost:1521:XE");
-        Statement statement = connection.createStatement();
-        return statement;
-        }catch(Exception e){
-        System.out.println("The exception raised is:" + e);
-        return null;  
-        } 
-    }
-    public LinkedList<String> query (String from){
-            try{
-            Statement st = conn();
-            ResultSet resultSet = st.executeQuery(from);
+    Connection connect = null;
+    public boolean conectado = false;
+    public Connection conectar() {
+        try {
+            Class.forName("oracle.jdbc.OracleDriver");
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connect = DriverManager.getConnection("jdbc:mysql://192.168.1.2/base1", "base1", "base1");
+            //           conect = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.29:1521:XE","root","");
+            String basedatos="jdbc:oracle:thin:@192.168.1.29:1521:XE";
+//            String basedatos="jdbc:oracle:thin:@localhost:1521:XE";
+            connect = DriverManager.getConnection(basedatos, "desafrrollo", "desarrollo123");
+            JOptionPane.showMessageDialog(null,"conecion correcta");
 
-            LinkedList<String> result = new LinkedList();
-            while(resultSet.next()){
-            for(int i=1;i< resultSet.getMetaData().getColumnCount(); i++){
-            result.add(resultSet.getString(i));
-            }
-            }
-            return result;
-            }catch (Exception e){
-            return null;
-            }
+//            conectado = true;
+//                System.out.println(conectado);
+
+        } catch (Exception e) {
+            conectado = false;
+            JOptionPane.showMessageDialog(null, e+"conexion fallida");
+        }
+//        System.out.println(conectado);
+        return connect;
     }
+    public static void main(String[] args) {
+       conexion cc=new conexion();
+        Connection cn=cc.conectar();
+        System.out.println(new conexion().conectar());
     }
+}
