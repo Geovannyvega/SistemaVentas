@@ -3,18 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package interfaces;
 
 /**
  *
  * @author User
  */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 public class FrCajeros extends javax.swing.JFrame {
 
@@ -23,63 +26,108 @@ public class FrCajeros extends javax.swing.JFrame {
      */
     public FrCajeros() {
         initComponents();
+//         cargartabcajeros("");
+
+        cargartabcajeros("");
+        cargarDatos();
+
     }
-    
-    
-    
+
+    private void cargarDatos() {
+        tblcajeros.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (tblcajeros.getSelectedRow() != -1) {
+                    int fila = tblcajeros.getSelectedRow();
+                    txtced.setText(tblcajeros.getValueAt(fila, 0).toString().trim());
+                    txtnombre.setText(tblcajeros.getValueAt(fila, 1).toString().trim());
+                    txtape.setText(tblcajeros.getValueAt(fila, 2).toString().trim());
+                    txtdir.setText(tblcajeros.getValueAt(fila, 3).toString());
+
+                }
+            }
+        });
+    }
+
+    DefaultTableModel modelo;
+
+    public void cargartabcajeros(String Dato) {
+        String titulos[] = {"CEDULA", "NOMBRE", "APELLIDO", "DIRECCION"};
+        String registros[] = new String[4];
+        modelo = new DefaultTableModel(null, titulos);
+
+        conexion cc = new conexion();
+        Connection cn = cc.conectar();
+        String sql = "";
+        sql = "select * from CAJEROS where CI_CAJ like '%" + Dato + "%'";
+        try {
+            Statement psd = cn.createStatement();
+            ResultSet rs = psd.executeQuery(sql);
+            while (rs.next()) {
+                registros[0] = rs.getString("CI_CAJ");
+                registros[1] = rs.getString("NOMBRE_CAJ");
+                registros[2] = rs.getString("APELLIDO_CAJ");
+                registros[3] = rs.getString("DIR_CAJ");
+
+                modelo.addRow(registros);
+            }
+            tblcajeros.setModel(modelo);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
     private void guardar() {
         if (txtced.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar laced");
             txtced.requestFocus();
         } else if (txtnombre.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar nombre");            
+            JOptionPane.showMessageDialog(null, "Debe ingresar nombre");
             txtnombre.requestFocus();
         } else if (txtape.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar apellido");            
+            JOptionPane.showMessageDialog(null, "Debe ingresar apellido");
             txtape.requestFocus();
-        }
-        else if (txtdir.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar el dir");            
-          txtdir.requestFocus();
-        } else 
-          
-        {
-            
+        } else if (txtdir.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el dir");
+            txtdir.requestFocus();
+        } else {
+
             conexion cc = new conexion();
             Connection cn = cc.conectar();
-          
-            String CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ;
-      
+
+            String CI_CAJ, NOMBRE_CAJ, APELLIDO_CAJ, DIR_CAJ;
+
             CI_CAJ = txtced.getText();//.trim().replace('-',' ' ).replaceAll(" ", "");
-           NOMBRE_CAJ = txtnombre.getText();
-           APELLIDO_CAJ=txtape.getText();
-           DIR_CAJ = txtdir.getText();
-           
-          String  sql = "insert into CAJEROS(CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ)VALUES(?,?,?,?)";
+            NOMBRE_CAJ = txtnombre.getText();
+            APELLIDO_CAJ = txtape.getText();
+            DIR_CAJ = txtdir.getText();
+
+            String sql = "insert into CAJEROS(CI_CAJ,NOMBRE_CAJ,APELLIDO_CAJ,DIR_CAJ)VALUES(?,?,?,?)";
             try {
                 PreparedStatement psd = cn.prepareStatement(sql);
                 psd.setString(1, CI_CAJ);
                 psd.setString(2, NOMBRE_CAJ);
                 psd.setString(3, APELLIDO_CAJ);
                 psd.setString(4, DIR_CAJ);
-                
+
                 int n = psd.executeUpdate();
                 if (n > 0) {
-                    JOptionPane.showMessageDialog(null, "se inserto crrectamente");
-          
+                    JOptionPane.showMessageDialog(null, "Se inserto correctamente");
+
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
         }
     }
-    
+
     public void desbloqueartxt() {
         txtced.setEnabled(true);
         txtnombre.setEnabled(true);
         txtape.setEnabled(true);
         txtdir.setEnabled(true);
-}
+    }
+
     private void botoneslimpios() {
         btnnuevo.setEnabled(true);
         btnguardar.setEnabled(false);
@@ -89,14 +137,58 @@ public class FrCajeros extends javax.swing.JFrame {
 //        btncancelar.setEnabled(false);
         btnsalir.setEnabled(true);
     }
-    
-     public void limpiartxt() {
+
+    public void limpiartxt() {
         txtced.setText("");
         txtnombre.setText("");
         txtape.setText("");
         txtdir.setText("");
     }
-    
+
+    public void borrar() {
+        if (JOptionPane.showConfirmDialog(null, "SEGURO QUE QUIERE BORRAR", "BORRAR REGISTRO", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            String codigo = txtced.getText();
+            String sql = " ";
+            sql = "delete from CAJEROS WHERE CI_CAJ ='" + codigo + "'";
+            try {
+                PreparedStatement psd = cn.prepareStatement(sql);
+                int i = psd.executeUpdate();
+                if (i > 0) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO BORRADO");
+                    limpiartxt();
+                    cargartabcajeros("");
+
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+
+    private void botonactualizar() {
+        conexion cc = new conexion();
+        Connection cn = cc.conectar();
+        String sql = "";
+        sql = "update CAJEROS set NOMBRE_CAJ='" + txtnombre.getText()
+                + "',APELLIDO_CAJ='" + txtape.getText()
+                + "',DIR_CAJ='" + txtdir.getText()
+                + "' where CI_CAJ='" + txtced.getText().trim().replace('-', ' ').replaceAll(" ", "") + "'";
+        try {
+            PreparedStatement psd = cn.prepareStatement(sql);
+            int n = psd.executeUpdate();
+            if (n > 0) {
+                JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO");
+                limpiartxt();
+
+                cargartabcajeros("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,7 +211,7 @@ public class FrCajeros extends javax.swing.JFrame {
         txtced = new javax.swing.JTextField();
         btnsalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblcajeros = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -155,8 +247,13 @@ public class FrCajeros extends javax.swing.JFrame {
         });
 
         btnsalir.setText("SALIR");
+        btnsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalirActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblcajeros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -164,11 +261,21 @@ public class FrCajeros extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblcajeros);
 
         jButton1.setText("MODIFICAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("ELIMINAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("CANCELAR");
 
@@ -266,13 +373,27 @@ public class FrCajeros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-       guardar();
+        guardar();
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
-        desbloqueartxt();
+//        desbloqueartxt();
         limpiartxt();
     }//GEN-LAST:event_btnnuevoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        borrar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        botonactualizar();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnsalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,7 +443,7 @@ public class FrCajeros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblcajeros;
     private javax.swing.JTextField txtape;
     private javax.swing.JTextField txtced;
     private javax.swing.JTextField txtdir;
