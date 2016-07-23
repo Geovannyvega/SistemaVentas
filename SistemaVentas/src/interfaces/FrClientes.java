@@ -26,7 +26,7 @@ public class FrClientes extends javax.swing.JFrame {
      */
     public FrClientes() {
         initComponents();
-        cargartablaautos("");
+        cargartabclientes("");
         cargarDatos();
     }
      private void cargarDatos() {
@@ -45,6 +45,29 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
     } 
+     
+    private void botonactualizar() {
+        conexion cc = new conexion();
+        Connection cn = cc.conectar();
+        String sql = "";
+        sql = "update clientes set NOM_CLI='" + txtnombre.getText() + 
+                "',APE_CLI='" + txtape.getText() + 
+                "',DIR_CLI='" + txtdir.getText() +
+                "',TEL_CLI='" + txttel.getText() +
+             "' where CI_CLI='" + txtced.getText().trim().replace('-',' ').replaceAll(" ","") + "'";
+        try {
+            PreparedStatement psd = cn.prepareStatement(sql);
+            int n = psd.executeUpdate();
+            if (n > 0) {
+                JOptionPane.showMessageDialog(null, "REGISTRO ACTUALIZADO");
+                limpiartxt();
+             
+                cargartabclientes("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,7 +330,7 @@ private void botonnuevo(){
     
 }
 DefaultTableModel modelo;
-    public void cargartablaautos(String Dato) {
+    public void cargartabclientes(String Dato) {
         String titulos[] = {"CEDULA", "NOMBRE", "APELLIDO", "DIRECCION", "TELEFONO"};
         String registros[] = new String[5];
         modelo = new DefaultTableModel(null, titulos);
@@ -385,7 +408,7 @@ DefaultTableModel modelo;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+botonactualizar();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
