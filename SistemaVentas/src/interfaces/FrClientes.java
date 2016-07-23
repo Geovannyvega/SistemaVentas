@@ -128,8 +128,6 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel5.setText("telefono");
 
-        txtced.setEditable(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -199,6 +197,11 @@ public class FrClientes extends javax.swing.JFrame {
         });
 
         jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cancelar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -329,6 +332,27 @@ private void botonnuevo(){
     limpiartxt();
     
 }
+  public void borrar() {
+        if (JOptionPane.showConfirmDialog(null, "SEGURO QUE QUIERE BORRAR", "BORRAR REGISTRO", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            conexion cc = new conexion();
+            Connection cn = cc.conectar();
+            String codigo = txtced.getText();
+            String sql = " ";
+            sql = "delete from clientes WHERE CI_CLI ='" + codigo + "'";
+            try {
+                PreparedStatement psd = cn.prepareStatement(sql);
+                int i = psd.executeUpdate();
+                if (i > 0) {
+                    JOptionPane.showMessageDialog(null, "REGISTRO BORRADO");
+                    limpiartxt();
+                    cargartabclientes("");
+                   
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
 DefaultTableModel modelo;
     public void cargartabclientes(String Dato) {
         String titulos[] = {"CEDULA", "NOMBRE", "APELLIDO", "DIRECCION", "TELEFONO"};
@@ -395,7 +419,7 @@ DefaultTableModel modelo;
                 int n = psd.executeUpdate();
                 if (n > 0) {
                     JOptionPane.showMessageDialog(null, "se inserto crrectamente");
-
+                    cargartabclientes("");
                 }
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -423,6 +447,10 @@ botonactualizar();        // TODO add your handling code here:
         this.dispose();
 
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+borrar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
