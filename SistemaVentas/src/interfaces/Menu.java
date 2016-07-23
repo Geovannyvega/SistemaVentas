@@ -192,7 +192,7 @@ public class Menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
     private void openUser() {
-        FrmUsuarios usu = new FrmUsuarios();
+        FrmCajeros usu = new FrmCajeros();
         if (cerrarUsuario != true) {
             try {
                 jDesktopPane1.add(usu); //para añadir al panel la intefas de auto

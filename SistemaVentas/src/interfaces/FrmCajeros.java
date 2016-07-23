@@ -4,26 +4,26 @@
  */
 package interfaces;
 
-//import java.security.MessageDigest;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
-//import javax.swing.JOptionPane;
-//import javax.swing.JPasswordField;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
+import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmUsuarios extends javax.swing.JFrame {
+public class FrmCajeros extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
     Utilidades md5 = new Utilidades();
 
-    public FrmUsuarios() {
+    public FrmCajeros() {
         initComponents();
-        jpfPasswd.setEchoChar('☻');
+//        jpfPasswd.setEchoChar('☻');
 //        cargartablausuarios("");
 //        bloqueartxt();
 //        botoneslimpios();
@@ -50,7 +50,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 
 
 
-    /**
+    
   
 //    private void cargarDatos() {
 //        jtblUsers.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -74,28 +74,28 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //            }
 //        });
 //    }
-//
-//    private void botonnuevo() {
-//        btnnuevo.setEnabled(false);
-//        btnguardar.setEnabled(true);
-//        btnmodificar.setEnabled(false);
-//        btneliminar.setEnabled(false);
-//        jchbxVer.setEnabled(true);
-//        btncancelar.setEnabled(true);
-//        btnsalir.setEnabled(true);
-//        jtxtCedula.requestFocus();
-//    }
-//
-//    private void botoneslimpios() {
-//        btnnuevo.setEnabled(true);
-//        btnguardar.setEnabled(false);
-//        btnmodificar.setEnabled(false);
-//        jchbxVer.setEnabled(false);
-//        btneliminar.setEnabled(false);
-//        btncancelar.setEnabled(false);
-//        btnsalir.setEnabled(true);
-//    }
 
+    private void botonnuevo() {
+        btnnuevo.setEnabled(false);
+        btnguardar.setEnabled(true);
+        btnmodificar.setEnabled(false);
+        btneliminar.setEnabled(false);
+        jchbxVer.setEnabled(true);
+        btncancelar.setEnabled(true);
+        btnsalir.setEnabled(true);
+        jtxtCedula.requestFocus();
+    }
+
+    private void botoneslimpios() {
+        btnnuevo.setEnabled(true);
+        btnguardar.setEnabled(false);
+        btnmodificar.setEnabled(false);
+        jchbxVer.setEnabled(false);
+        btneliminar.setEnabled(false);
+        btncancelar.setEnabled(false);
+        btnsalir.setEnabled(true);
+    }
+//
 //    public void borrar() {
 //        if (JOptionPane.showConfirmDialog(null, "SEGURO QUE QUIERE BORRAR", "BORRAR REGISTRO", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 //            Conexion cc = new Conexion();
@@ -123,7 +123,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //    public void cargarclave(String cedu) {
 //
 //        try {
-//            Conexion cc = new Conexion();
+//            conexion cc = new conexion();
 //            Connection cn = cc.getConexion();
 //            String sql = " ";
 //
@@ -142,54 +142,54 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //        }
 //    }
  
-//    private boolean verifCedula(String ced) {
-//        boolean verifica = false;
-//        int n = ced.length();
-//        int sumPar = 0, sumaImpar = 0, rpar, rimpar, sumTotal, deceSup, nVerif;
-//        String convn;
-//        if (n < 10 || n > 10) {
-////            verifica = false;
-////            JOptionPane.showMessageDialog(null, "La cédula debe tener 10 digitos");
-////            System.out.println("cedula incorrecta");
-//        } else {
-//            String a = String.valueOf(ced.charAt(9));
-//            int nVerificador = Integer.valueOf(a);
-////        System.out.println("numero verificador: "+nVerificador);
-//            for (int i = 0; i < 10; i += 2) {
-//                convn = String.valueOf(ced.charAt(i));
-//                System.out.println("numero: "+convn);
-//                rpar = Integer.valueOf(convn) * 2;
-//                System.out.println("rpar*2: "+rpar);
-//                if (rpar >= 10) {
-//                    rpar = rpar - 9;
-//                }
-//                sumPar += rpar;
-//            }
-////            System.out.println("suma par: "+sumPar);
-//            for (int i = 1; i < 9; i += 2) {
-//                convn = String.valueOf(ced.charAt(i));
-////                System.out.println("numero: "+convn);
-//                rimpar = Integer.valueOf(convn);
-//                sumaImpar += rimpar;
-//            }
-////            System.out.println("suma impar: "+sumaImpar);
-//            sumTotal = sumPar + sumaImpar;
-////            System.out.println("suma total: "+sumTotal);
-//            deceSup = ((int) sumTotal / 10) * 10 + 10;
-//            nVerif = deceSup - sumTotal;
-////            System.out.println("num v: " + nVerif);
-////            System.out.println(deceSup);
-//            if (nVerif == nVerificador || nVerif == 10) {
-//                verifica = true;
-//                //JOptionPane.showMessageDialog(null, "cedula correcta");
-//            }
-//        }
-//        if (!verifica) {
-//            JOptionPane.showMessageDialog(null, "Cedula incorrecta, Ingrese nueamente");
-//        }
-//        //        System.out.println("cedula es; " + verifica);
-//        return verifica;
-//    }
+    private boolean verifCedula(String ced) {
+        boolean verifica = false;
+        int n = ced.length();
+        int sumPar = 0, sumaImpar = 0, rpar, rimpar, sumTotal, deceSup, nVerif;
+        String convn;
+        if (n < 10 || n > 10) {
+            verifica = false;
+            JOptionPane.showMessageDialog(null, "La cédula debe tener 10 digitos");
+            System.out.println("cedula incorrecta");
+        } else {
+            String a = String.valueOf(ced.charAt(9));
+            int nVerificador = Integer.valueOf(a);
+        System.out.println("numero verificador: "+nVerificador);
+            for (int i = 0; i < 10; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+                System.out.println("numero: "+convn);
+                rpar = Integer.valueOf(convn) * 2;
+                System.out.println("rpar*2: "+rpar);
+                if (rpar >= 10) {
+                    rpar = rpar - 9;
+                }
+                sumPar += rpar;
+            }
+            System.out.println("suma par: "+sumPar);
+            for (int i = 1; i < 9; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+                System.out.println("numero: "+convn);
+                rimpar = Integer.valueOf(convn);
+                sumaImpar += rimpar;
+            }
+            System.out.println("suma impar: "+sumaImpar);
+            sumTotal = sumPar + sumaImpar;
+            System.out.println("suma total: "+sumTotal);
+            deceSup = ((int) sumTotal / 10) * 10 + 10;
+            nVerif = deceSup - sumTotal;
+            System.out.println("num v: " + nVerif);
+            System.out.println(deceSup);
+            if (nVerif == nVerificador || nVerif == 10) {
+                verifica = true;
+                JOptionPane.showMessageDialog(null, "cedula correcta");
+            }
+        }
+        if (!verifica) {
+            JOptionPane.showMessageDialog(null, "Cedula incorrecta, Ingrese nueamente");
+        }
+                System.out.println("cedula es; " + verifica);
+        return verifica;
+    }
 
 //    public void cargartablausuarios(String Dato) {
 //        String titulos[] = {"USUARIO", "PERFIL", "CONTACTO", "OBSERVACION"};
@@ -200,7 +200,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //        Connection cn = cc.getConexion();
 //        String sql = "";
 //        sql = "select * from usuarios  where USU_CEDULA like '%" + Dato + "%' order by USU_CEDULA";
-//        // sql="select * from auto where pla_aut = '"+Dato+"'";
+//         sql="select * from auto where pla_aut = '"+Dato+"'";
 //        try {
 //            Statement psd = cn.createStatement();
 //            ResultSet rs = psd.executeQuery(sql);
@@ -219,39 +219,39 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, ex);
 //        }
 //    }
-  //    public void desbloqueartxt() {
-//        jtxtCedula.setEnabled(true);
-//        jpfPasswd.setEnabled(true);
-//        cbperfil.setEnabled(true);
-//        txtcontacto.setEnabled(true);
-//        txtobservacion.setEnabled(true);
-//    }
-//
-//    public void bloqueartxt() {
-//        jtxtCedula.setEnabled(false);
-//        jpfPasswd.setEnabled(false);
-//        cbperfil.setEnabled(false);
-//        txtcontacto.setEnabled(false);
-//        txtobservacion.setEnabled(false);
-//    }
-//
-//    public void limpiartxt() {
-//        jtxtCedula.setText("");
-//        jpfPasswd.setText("");
-//        cbperfil.setSelectedItem("SELECCIONE");
-//        txtcontacto.setText("");
-//        jchbxVer.setSelected(false);
-//        txtobservacion.setText("");
-//    }
-//
-//    private String getPasswd(JPasswordField pswd) {
-//        String pass = "";
-//        char[] passwd = pswd.getPassword();
-//        for (int i = 0; i < passwd.length; i++) {
-//            pass += passwd[i];
-//        }
-//        return pass;
-//    }
+      public void desbloqueartxt() {
+        jtxtCedula.setEnabled(true);
+        jpfPasswd.setEnabled(true);
+        cbperfil.setEnabled(true);
+        txtcontacto.setEnabled(true);
+        txtobservacion.setEnabled(true);
+    }
+
+    public void bloqueartxt() {
+        jtxtCedula.setEnabled(false);
+        jpfPasswd.setEnabled(false);
+        cbperfil.setEnabled(false);
+        txtcontacto.setEnabled(false);
+        txtobservacion.setEnabled(false);
+    }
+
+    public void limpiartxt() {
+        jtxtCedula.setText("");
+        jpfPasswd.setText("");
+        cbperfil.setSelectedItem("SELECCIONE");
+        txtcontacto.setText("");
+        jchbxVer.setSelected(false);
+        txtobservacion.setText("");
+    }
+
+    private String getPasswd(JPasswordField pswd) {
+        String pass = "";
+        char[] passwd = pswd.getPassword();
+        for (int i = 0; i < passwd.length; i++) {
+            pass += passwd[i];
+        }
+        return pass;
+    }
 //
 //    private void guardar() {
 //        if (jtxtCedula.getText().isEmpty()) {
@@ -277,7 +277,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //            String ced1 = getCed(ced);
 //            USU_CEDULA = ced1;
 //            String pass = getPasswd(jpfPasswd);
-//            //System.out.println("clave sin encr: " + pass);
+//            System.out.println("clave sin encr: " + pass);
 //            USU_CLAVE = md5.Encriptar(pass);
 //            USU_PERFIL = String.valueOf(cbperfil.getSelectedItem());
 //            USU_CONTACTO = txtcontacto.getText().trim();
@@ -306,7 +306,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-//
+
 //    private void botonactualizar() {
 //        String passwd, pass, encry;
 //        pass = getPasswd(jpfPasswd);
@@ -345,7 +345,7 @@ public class FrmUsuarios extends javax.swing.JFrame {
 //            }
 //        }
 //    }  
-     */
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -653,8 +653,8 @@ public class FrmUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
-//        desbloqueartxt();
-//        limpiartxt();
+        desbloqueartxt();
+        limpiartxt();
 //        botonnuevo();
 //        btnguardar.setEnabled(true);
 //        btnnuevo.setEnabled(false);
@@ -681,20 +681,20 @@ public class FrmUsuarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCajeros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCajeros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCajeros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCajeros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmUsuarios().setVisible(true);
+                new FrmCajeros().setVisible(true);
             }
         });
     }
