@@ -7,7 +7,7 @@ public class conexion {
     public Connection conectar() {
         try {
            //    String basedatos="jdbc:oracle:thin:@192.168.1.18:1521:XE";
-           //   connect = DriverManager.getConnection(basedatos, "proyecto", "112345");
+           //   connect = DriverManager.getConnection(basedatos, "proyecto", "12345");
             
              String basedatos="jdbc:oracle:thin:@localhost:1521:XE";
             connect = DriverManager.getConnection(basedatos, "proyecto", "p12345");
