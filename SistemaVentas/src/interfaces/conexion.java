@@ -6,14 +6,11 @@ public class conexion {
     public boolean conectado = false;
     public Connection conectar() {
         try {
-            Class.forName("oracle.jdbc.OracleDriver");
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connect = DriverManager.getConnection("jdbc:mysql://192.168.1.2/base1", "base1", "base1");
-            //           conect = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.29:1521:XE","root","");
-            String basedatos="jdbc:oracle:thin:@192.168.1.18:1521:XE";
-//            String basedatos="jdbc:oracle:thin:@localhost:1521:XE";
-            connect = DriverManager.getConnection(basedatos, "proyecto", "12345");
-            JOptionPane.showMessageDialog(null,"conecion correcta");
+           //    String basedatos="jdbc:oracle:thin:@192.168.1.18:1521:XE";
+           //   connect = DriverManager.getConnection(basedatos, "proyecto", "112345");
+            
+             String basedatos="jdbc:oracle:thin:@localhost:1521:XE";
+            connect = DriverManager.getConnection(basedatos, "proyecto", "p12345");
 
             conectado = true;
                 System.out.println(conectado);
@@ -22,7 +19,7 @@ public class conexion {
             conectado = false;
             JOptionPane.showMessageDialog(null, e+"conexion fallida");
         }
-//        System.out.println(conectado);
+        System.out.println(conectado);
         return connect;
     }
     public static void main(String[] args) {
