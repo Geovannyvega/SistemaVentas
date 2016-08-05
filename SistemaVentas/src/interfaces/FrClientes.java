@@ -178,6 +178,11 @@ public class FrClientes extends javax.swing.JFrame {
                 txtcedActionPerformed(evt);
             }
         });
+        txtced.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtcedFocusLost(evt);
+            }
+        });
 
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,6 +521,15 @@ borrar();        // TODO add your handling code here:
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
+
+    private void txtcedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcedFocusLost
+         String ced=txtced.getText();
+        String ced1=getCed(ced);
+        if (!verifCedula(ced1)) {
+          txtced.setText("");
+           txtced.requestFocus();
+        }
+    }//GEN-LAST:event_txtcedFocusLost
 
     /**
      * @param args the command line arguments
