@@ -523,12 +523,12 @@ borrar();        // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void txtcedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcedFocusLost
-//         String ced=txtced.getText();
-//        String ced1=getCed(ced);
-//        if (!verifCedula(ced1)) {
-//          txtced.setText("");
-//           txtced.requestFocus();
-//        }
+         String ced=txtced.getText();
+        String ced1=getCed(ced);
+        if (!verifCedula(ced1)) {
+          txtced.setText("");
+           txtced.requestFocus();
+        }
     }//GEN-LAST:event_txtcedFocusLost
 
     /**
