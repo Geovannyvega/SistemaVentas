@@ -165,13 +165,13 @@ public class FrClientes extends javax.swing.JFrame {
 
         jLabel1.setText("CEDULA");
 
-        jLabel2.setText("nombre");
+        jLabel2.setText("NOMBRE");
 
-        jLabel3.setText("apellido");
+        jLabel3.setText("APELLIDO");
 
-        jLabel4.setText("direccion");
+        jLabel4.setText("DIRECCION");
 
-        jLabel5.setText("telefono");
+        jLabel5.setText("TELEFONO");
 
         txtced.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,12 +523,12 @@ borrar();        // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void txtcedFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcedFocusLost
-         String ced=txtced.getText();
-        String ced1=getCed(ced);
-        if (!verifCedula(ced1)) {
-          txtced.setText("");
-           txtced.requestFocus();
-        }
+//         String ced=txtced.getText();
+//        String ced1=getCed(ced);
+//        if (!verifCedula(ced1)) {
+//          txtced.setText("");
+//           txtced.requestFocus();
+//        }
     }//GEN-LAST:event_txtcedFocusLost
 
     /**

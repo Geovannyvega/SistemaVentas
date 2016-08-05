@@ -156,22 +156,22 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="nombre"/>
+            <Property name="text" type="java.lang.String" value="NOMBRE"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="apellido"/>
+            <Property name="text" type="java.lang.String" value="APELLIDO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="direccion"/>
+            <Property name="text" type="java.lang.String" value="DIRECCION"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="telefono"/>
+            <Property name="text" type="java.lang.String" value="TELEFONO"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtape">
