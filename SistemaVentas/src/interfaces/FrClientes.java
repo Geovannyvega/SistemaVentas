@@ -40,7 +40,57 @@ public class FrClientes extends javax.swing.JFrame {
             }
         });
     } 
-     
+       private String getCed(String ced) {
+        System.out.println("CED: " + ced);
+        ced = ced.replace('-', ' ').replaceAll(" ", "");
+        System.out.println("ced1: " + ced);
+        return ced;
+    }
+    private boolean verifCedula(String ced) {
+        boolean verifica = false;
+        int n = ced.length();
+        int sumPar = 0, sumaImpar = 0, rpar, rimpar, sumTotal, deceSup, nVerif;
+        String convn;
+        if (n < 10 || n > 10) {
+
+        } else {
+            String a = String.valueOf(ced.charAt(9));
+            int nVerificador = Integer.valueOf(a);
+
+            for (int i = 0; i < 10; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+
+                rpar = Integer.valueOf(convn) * 2;
+
+                if (rpar >= 10) {
+                    rpar = rpar - 9;
+                }
+                sumPar += rpar;
+            }
+
+            for (int i = 1; i < 9; i += 2) {
+                convn = String.valueOf(ced.charAt(i));
+
+                rimpar = Integer.valueOf(convn);
+                sumaImpar += rimpar;
+            }
+
+            sumTotal = sumPar + sumaImpar;
+
+            deceSup = ((int) sumTotal / 10) * 10 + 10;
+            nVerif = deceSup - sumTotal;
+
+            if (nVerif == nVerificador || nVerif == 10) {
+                verifica = true;
+            
+            }
+        }
+        if (!verifica) {
+            JOptionPane.showMessageDialog(null, "Cedula incorrecta, Ingrese nueamente");
+        }
+      
+        return verifica;
+    }
     private void botonactualizar() {
         conexion cc = new conexion();
         Connection cn = cc.conectar();
